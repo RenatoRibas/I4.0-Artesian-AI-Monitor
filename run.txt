@@ -1,0 +1,31 @@
+Criar api flask python
+
+instalar python
+
+pip install Flask
+
+python3 -m venv venv
+
+venv\scripts\activate
+
+pip install flask_mysqldb
+
+pip install flask_sqlalchemy
+
+pip install flask_migrate
+
+pip install flask_restful
+
+pip install flask_jwt_extended
+
+pip install psycopg2
+
+rodando um hello world:
+
+from flask import Flask
+app = Flask(__name__)
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+flask run
