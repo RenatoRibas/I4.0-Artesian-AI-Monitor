@@ -1,7 +1,7 @@
  # Gerenciamento Inteligente na captação de água em Poços artesianos
 
 <div align="center">
-  <img src="Images\Capa.png" alt="Logo">
+  <img src="Images\Capa.PNG" alt="Logo">
 </div>
 
 ### Integrantes:
