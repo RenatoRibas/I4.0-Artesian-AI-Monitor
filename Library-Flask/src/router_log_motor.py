@@ -1,4 +1,4 @@
-from repositorio_log_motor import LogMotor
+from repository_log_motor import LogMotor
 
 def router(app):
     @app.route('/log-motor', methods=['GET'])

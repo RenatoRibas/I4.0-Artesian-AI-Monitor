@@ -16,7 +16,7 @@ class Motor(db.Base):
 
     def builder(self):
         return {
-            'id_motor': self.id_log_motor,
+            'id_motor': self.id_motor,
             'tag': self.tag,
             'descricao': self.descricao,
             'frequencia': self.frequencia,
@@ -34,7 +34,7 @@ class Motor(db.Base):
         if (len(data) > 0):
             return
 
-        registro = Motor(
+        register = Motor(
             id_motor=1,
             tag='Bomba Poço 1',
             descricao='Bomba Poço 1',
@@ -44,9 +44,9 @@ class Motor(db.Base):
             potencia=3.3,
         )
 
-        session.add(registro)
+        session.add(register)
 
-        registro = Motor(
+        register = Motor(
             id_motor=2,
             tag='Bomba Poço 2',
             descricao='Bomba Poço 2',
@@ -56,9 +56,9 @@ class Motor(db.Base):
             potencia=3.3,
         )
 
-        session.add(registro)
+        session.add(register)
 
-        registro = Motor(
+        register = Motor(
             id_motor=3,
             tag='Bomba Poço 3',
             descricao='Bomba Poço 3',
@@ -68,7 +68,7 @@ class Motor(db.Base):
             potencia=3.3,
         )
 
-        session.add(registro)
+        session.add(register)
 
         session.commit()
         session.close()
@@ -83,3 +83,9 @@ class Motor(db.Base):
         response = jsonify({'content': serialized_data})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
+    
+    def save():
+        return
+    
+    def delete():
+        return

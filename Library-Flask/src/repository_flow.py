@@ -3,7 +3,7 @@ from flask import jsonify
 import db
 import random
 
-class Vazao(db.Base):
+class Flow(db.Base):
     __tablename__ = 'vazao'
 
     id_vazao = Column(Integer, primary_key=True)
@@ -19,27 +19,27 @@ class Vazao(db.Base):
             'timestamp': self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
         }
     
-    def insert(id_log_motor, counter):
+    def insert(id_log_motor, counter, fault_counter):
         session = db.Session()
 
-        vazao = random.uniform(24.36, 25.47)
+        flow = random.uniform(24.36, 25.47)
 
-        if counter == 10:
-            vazao = random.uniform(19.36, 22.47)
+        if counter == fault_counter:
+            flow = random.uniform(19.36, 22.47)
 
-        registro = Vazao(
+        register = Flow(
             id_log_motor=id_log_motor,
-            vazao_registrada=vazao,
+            vazao_registrada=flow,
         )
 
-        session.add(registro)
+        session.add(register)
         session.commit()
         session.close()
 
     def get():
         session = db.Session()
 
-        data = session.query(Vazao).order_by(Vazao.timestamp.desc()).limit(10).all()
+        data = session.query(Flow).order_by(Flow.timestamp.desc()).limit(10).all()
         serialized_data = [row.builder() for row in data]
         session.close()
 

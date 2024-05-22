@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Float, Integer, DateTime, func, Boolean
 from flask import jsonify
-from repositorio_vazao import Vazao
+from repository_flow import Flow
 import db
 import random
     
@@ -26,7 +26,7 @@ class LogMotor(db.Base):
             'timestamp': self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
         }
     
-    def insert(counter):
+    def insert(counter, fault_counter):
         session = db.Session()
 
         id_motor = random.uniform(1, 3)
@@ -34,7 +34,7 @@ class LogMotor(db.Base):
         corrente = random.uniform(15, 20)
         tensao_entrada = random.uniform(370, 400)
 
-        registro = LogMotor(
+        register = LogMotor(
             id_motor=id_motor,
             status=True,
             frequencia=frequencia, 
@@ -42,10 +42,10 @@ class LogMotor(db.Base):
             tensao_entrada=tensao_entrada,
         )
 
-        session.add(registro)
+        session.add(register)
         session.commit()
 
-        Vazao.insert(registro.id_log_motor, counter)
+        Flow.insert(register.id_log_motor, counter, fault_counter)
 
         session.close()
 
