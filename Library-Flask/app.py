@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+from waitress import serve
 import schedule
 import threading
 
+import router_auth
 import router_fault_detection
 import router_log_motor
 import router_motor
@@ -11,20 +14,6 @@ import router_flow
 from repository_fault_detection import FaultDetection
 from repository_log_motor import LogMotor
 from repository_motor import Motor
-
-app = Flask(__name__)
-
-CORS(
-    app, 
-    origins="*", 
-    supports_credentials=True, 
-    methods=['GET', 'OPTIONS']
-)
-
-router_fault_detection.router(app)
-router_log_motor.router(app)
-router_motor.router(app)
-router_flow.router(app)
 
 counter = 1
 
@@ -42,7 +31,7 @@ def insert():
     else:
         counter += 1
 
-schedule.every(5).seconds.do(insert)
+schedule.every(300).seconds.do(insert)
 
 def schedule_loop():
     while True:
@@ -52,4 +41,22 @@ t = threading.Thread(target=schedule_loop)
 t.start()
 
 if __name__ == '__main__':
+    app = Flask(__name__)
+    app.config['JWT_SECRET_KEY'] = 'artesian-ai-monitor'
+
+    jwt = JWTManager(app)
+
+    CORS(
+        app, 
+        origins="*", 
+        supports_credentials=True,
+    )
+
+    router_auth.router(app, jwt)
+    router_fault_detection.router(app, jwt)
+    router_log_motor.router(app, jwt)
+    router_motor.router(app, jwt)
+    router_flow.router(app, jwt)
+
     app.run(debug=True)
+    # serve(app, host='0.0.0.0', port=5000)

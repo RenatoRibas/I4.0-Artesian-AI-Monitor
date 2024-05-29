@@ -21,3 +21,19 @@ def objectFormatter(object):
             data[key] = value
     
     return data
+
+def requestFormatter(request):
+
+    content = {
+        "params": {},
+        "query": {},
+        "body": {},
+    }
+
+    if request.args:
+        content["query"] = objectFormatter(request.args)
+
+    if request.method in ['POST', 'PUT']:
+        content["body"] = objectFormatter(request.get_json())
+    
+    return content

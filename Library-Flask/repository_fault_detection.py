@@ -8,7 +8,7 @@ import math
 class FaultDetection(db.Base):
     __tablename__ = 'previsao'
 
-    id_previsao = Column(Integer, primary_key=True)
+    id_previsao = Column(Integer, primary_key=True, autoincrement=True)
     previsao_registrada = Column(Float)
     offset_tolerancia = Column(Float)
     timestamp = Column(DateTime, server_default=func.now())

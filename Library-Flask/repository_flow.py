@@ -6,7 +6,7 @@ import random
 class Flow(db.Base):
     __tablename__ = 'vazao'
 
-    id_vazao = Column(Integer, primary_key=True)
+    id_vazao = Column(Integer, primary_key=True, autoincrement=True)
     id_log_motor = Column(Integer)
     vazao_registrada = Column(Float)
     timestamp = Column(DateTime, server_default=func.now())

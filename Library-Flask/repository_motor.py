@@ -5,7 +5,7 @@ import db
 class Motor(db.Base):
     __tablename__ = 'motor'
 
-    id_motor = Column(Integer, primary_key=True)
+    id_motor = Column(Integer, primary_key=True, autoincrement=True)
     tag = Column(String)
     descricao = Column(String)
     frequencia = Column(Float)
@@ -84,8 +84,44 @@ class Motor(db.Base):
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
-    def save():
-        return
+    def save(body):
+        session = db.Session()
+        id_motor = body.get("id_motor")
+
+        if id_motor:
+            motor = session.query(Motor).filter_by(id_motor=id_motor).first()
+
+            if not motor:
+                session.close()
+                return jsonify({"mensagem": "Motor não encontrado"}), 404
+        else:
+            motor = Motor()
+
+        motor.tag = body.get("tag", motor.tag)
+        motor.descricao = body.get("descricao", motor.descricao)
+        motor.frequencia = body.get("frequencia", motor.frequencia)
+        motor.corrente = body.get("corrente", motor.corrente)
+        motor.tensao = body.get("tensao", motor.tensao)
+        motor.potencia = body.get("potencia", motor.potencia)
+
+        session.add(motor)
+        session.commit()
+        session.close()
+        
+        return jsonify({"mensagem": "Motor atualizado com sucesso"}), 200
     
-    def delete():
-        return
+    def delete(id_motor):
+        session = db.Session()
+
+        motor = session.query(Motor).filter_by(id_motor=id_motor).first()
+
+        if not motor:
+            session.close()
+            return jsonify({"mensagem": "Motor não encontrado"}), 404
+
+        session.delete(motor)
+
+        session.commit()
+        session.close()
+
+        return jsonify({"mensagem": "Motor removido com sucesso"}), 200
