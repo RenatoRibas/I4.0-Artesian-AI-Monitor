@@ -42,7 +42,9 @@ t.start()
 
 if __name__ == '__main__':
     app = Flask(__name__)
+
     app.config['JWT_SECRET_KEY'] = 'artesian-ai-monitor'
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 43200
 
     jwt = JWTManager(app)
 
@@ -58,5 +60,5 @@ if __name__ == '__main__':
     router_motor.router(app, jwt)
     router_flow.router(app, jwt)
 
-    app.run(debug=True)
-    # serve(app, host='0.0.0.0', port=5000)
+    # app.run(debug=True)
+    serve(app, host='0.0.0.0', port=5000)
