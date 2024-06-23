@@ -1,40 +1,40 @@
 -- Tabela DadosMotores
-CREATE TABLE DadosMotores (
+CREATE TABLE motor (
     id_motor SERIAL PRIMARY KEY,
     tag VARCHAR(255) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
-    frequencia_norm FLOAT NOT NULL,
-    potencia_norm FLOAT NOT NULL,
-    corrente_norm FLOAT NOT NULL,
-    tensao_norm FLOAT NOT NULL,
-    timestamp TIMESTAMP NOT NULL
+    frequencia FLOAT NOT NULL,
+    potencia FLOAT NOT NULL,
+    corrente FLOAT NOT NULL,
+    tensao FLOAT NOT NULL,
+    timestamp TIMESTAMP default CURRENT_TIMESTAMP NOT NULL
 );
 
 -- Tabela DatalogMotores
-CREATE TABLE DatalogMotores (
-    id_log SERIAL PRIMARY KEY,
+CREATE TABLE log_motor (
+    id_log_motor SERIAL PRIMARY KEY,
     id_motor INT NOT NULL,
     status BOOLEAN NOT NULL,
-    spFrequencia FLOAT NOT NULL,
-    feedCorrente FLOAT NOT NULL,
-    feedTensaoEntrada FLOAT NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
-    FOREIGN KEY (id_motor) REFERENCES DadosMotores(id_motor)
+    frequencia FLOAT NOT NULL,
+    corrente FLOAT NOT NULL,
+    tensao_entrada FLOAT NOT NULL,
+    timestamp TIMESTAMP default CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY (id_motor) REFERENCES motor(id_motor)
 );
 
 -- Tabela EventosVazao
-CREATE TABLE EventosVazao (
-    id_evento SERIAL PRIMARY KEY,
-    id_log INT NOT NULL,
-    vazaoRegistrada FLOAT NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
-    FOREIGN KEY (id_log) REFERENCES DatalogMotores(id_log)
+CREATE TABLE vazao (
+    id_vazao SERIAL PRIMARY KEY,
+    id_log_motor INT NOT NULL,
+    vazao_registrada FLOAT NOT NULL,
+    timestamp TIMESTAMP default CURRENT_TIMESTAMP NOT NULL,
+    FOREIGN KEY (id_log_motor) REFERENCES log_motor(id_log_motor)
 );
 
 -- Tabela previsaoM3h 
-CREATE TABLE previsaoM3h (
+CREATE TABLE previsao (
     id_previsao SERIAL PRIMARY KEY,
-    previsaoRegistrada FLOAT NOT NULL,
-    offsetTolerancia FLOAT NOT NULL,
-    timestamp TIMESTAMP NOT NULL
+    previsao_registrada FLOAT NOT NULL,
+    offset_tolerancia FLOAT NOT NULL,
+    timestamp TIMESTAMP default CURRENT_TIMESTAMP NOT NULL
 );
