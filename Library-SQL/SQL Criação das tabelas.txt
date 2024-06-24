@@ -1,5 +1,4 @@
--- Tabela DadosMotores
-CREATE TABLE motor (
+CREATE TABLE IF NOT EXISTS motor (
     id_motor SERIAL PRIMARY KEY,
     tag VARCHAR(255) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
@@ -10,8 +9,7 @@ CREATE TABLE motor (
     timestamp TIMESTAMP default CURRENT_TIMESTAMP NOT NULL
 );
 
--- Tabela DatalogMotores
-CREATE TABLE log_motor (
+CREATE TABLE IF NOT EXISTS log_motor (
     id_log_motor SERIAL PRIMARY KEY,
     id_motor INT NOT NULL,
     status BOOLEAN NOT NULL,
@@ -22,8 +20,7 @@ CREATE TABLE log_motor (
     FOREIGN KEY (id_motor) REFERENCES motor(id_motor)
 );
 
--- Tabela EventosVazao
-CREATE TABLE vazao (
+CREATE TABLE IF NOT EXISTS vazao (
     id_vazao SERIAL PRIMARY KEY,
     id_log_motor INT NOT NULL,
     vazao_registrada FLOAT NOT NULL,
@@ -31,8 +28,7 @@ CREATE TABLE vazao (
     FOREIGN KEY (id_log_motor) REFERENCES log_motor(id_log_motor)
 );
 
--- Tabela previsaoM3h 
-CREATE TABLE previsao (
+CREATE TABLE IF NOT EXISTS previsao (
     id_previsao SERIAL PRIMARY KEY,
     id_log_motor INT NOT NULL,
     previsao_registrada FLOAT NOT NULL,
