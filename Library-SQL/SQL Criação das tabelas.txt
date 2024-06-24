@@ -34,7 +34,8 @@ CREATE TABLE vazao (
 -- Tabela previsaoM3h 
 CREATE TABLE previsao (
     id_previsao SERIAL PRIMARY KEY,
+    id_log_motor INT NOT NULL,
     previsao_registrada FLOAT NOT NULL,
-    offset_tolerancia FLOAT NOT NULL,
-    timestamp TIMESTAMP default CURRENT_TIMESTAMP NOT NULL
+    timestamp TIMESTAMP default CURRENT_TIMESTAMP NOT null,
+    FOREIGN KEY (id_log_motor) REFERENCES log_motor(id_log_motor)
 );
