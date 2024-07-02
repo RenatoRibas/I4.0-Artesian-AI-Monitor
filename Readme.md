@@ -10,8 +10,6 @@
 - [Keniel Alves Nunes](https://github.com/KenielDev)
 - [Gustavo Valsechi](https://github.com/gustavo-valsechi)
 - [Renato Ribas Campos](https://github.com/RenatoRibas)
-- [Thiago Salles Melo](https://github.com/TiagoS4)
-- [Miguel Rosso](https://github.com/Miguelito001)
 
 ## Descrição do Projeto
 
